@@ -1,7 +1,8 @@
-from bottle import route, run, response, request, app, redirect
 import urllib
 import json
 import re
+import os
+from bottle import route, run, response, request, app, redirect
 from jpaddress import get_jp_address
 
 
@@ -26,6 +27,11 @@ def get_address():
     return json.dumps(results)
 
 
-
 if __name__ == '__main__':
-    run(host='0.0.0.0', port=9080)
+    # Use
+    # heroku config:set HEROKU=true
+    # to set the env variable
+    if os.getenv("HEROKU")==None:
+        run(host="localhost", port=(os.environ.get("PORT",5200)), debug=True, reloader=True)
+    else:
+        run(host="0.0.0.0", port=(os.environ.get("PORT",5200)))
