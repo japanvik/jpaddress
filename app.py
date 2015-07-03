@@ -23,9 +23,16 @@ def get_address():
     url = query['q']
     data = get_jp_address(get_page_data(url))
     results = [{'address':x[0]} for x in data]
-    response.set_header('Content-Type','text/json')
+    response.set_header('Content-Type','application/json')
     return json.dumps(results)
 
+@route('/pt')
+def get_address_pt():
+    query = dict(request.query)
+    url = query['q']
+    data = get_jp_address(get_page_data(url))
+    response.set_header('Content-Type','text/plain')
+    return '\n'.join([x[0] for x in data])
 
 if __name__ == '__main__':
     # Use
