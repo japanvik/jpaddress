@@ -11,5 +11,6 @@ def get_jp_address(data):
     """ return the Address string based on regular expression given a unicode string
     """
     reg = re.compile(REG_JPADDRESS)
-    return re.findall(reg, data)
+    matches = re.findall(reg, data)
+    return list(set(matches)) #Unique it
 
